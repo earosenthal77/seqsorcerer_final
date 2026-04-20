@@ -56,7 +56,7 @@ def rna_seq_pipeline():
     print("Reference genome is built.")
 
     print("Now trimming your raw reads.")
-    trim_and_fastqc(folder_path, trimmed_folder_path)
+    fastqc_report_out_list = trim_and_fastqc(folder_path, trimmed_folder_path)
     print("Reads are trimmed.")
 
     alignment_folder_path = os.path.join(output_dir, "aligned_folder_bamfiles")
@@ -65,8 +65,7 @@ def rna_seq_pipeline():
     print(fastqc_report_out_list)
     print(alignment_folder_path)
     print(genome_location_path)
-    for fastqc_report_out in fastqc_report_out_list:
-        automated_alignment(fastqc_report_out, alignment_folder_path, genome_location_path)
+    automated_alignment(trimmed_folder_path, alignment_folder_path, genome_location_path)
     
     print("Reads are aligned.")
 
