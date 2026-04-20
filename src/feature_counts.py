@@ -1,4 +1,5 @@
 import subprocess
+import os
 
 def run_feature_counts(gtf_file, input_folder, output_folder):
     # Iterate through files in the input folder
