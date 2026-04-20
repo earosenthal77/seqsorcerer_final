@@ -29,9 +29,7 @@ def rna_seq_pipeline():
     # Prompt for user input
     #folder_path = input("Enter the folder path containing your data: ").strip()
     #output_dir = input("Enter the desired output directory: ").strip()
-    #folder_path="/Volumes/CaChannel/240617ZebraFinchEmbryo/Lagging"
     folder_path = "/data/testing"
-    #output_dir="/Volumes/CaChannel/240617ZebraFinchEmbryo/output_forFullAuto"
     output_dir="/data"
     
     # Define trimmed folder path
