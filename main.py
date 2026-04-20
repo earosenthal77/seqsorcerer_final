@@ -51,8 +51,9 @@ def rna_seq_pipeline():
 
     print("Building your reference genome!")
     genome_location_path = os.path.join(output_dir, "aligned_genome")
-    os.makedirs(genome_location_path, exist_ok=True)
-    build_reference_genome(fasta_location, genome_location_path)
+    if not os.path.exists(genome_location_path):
+        os.makedirs(genome_location_path, exist_ok=True)
+        build_reference_genome(fasta_location, genome_location_path)
     print("Reference genome is built.")
 
     print("Now trimming your raw reads.")
