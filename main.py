@@ -6,10 +6,10 @@ from importlib import reload
 
 #import from files: 
 from src.check_tool import check_tool_version, define_tools
-from trimming import trim_and_fastqc
-from reference_genome import build_reference_genome, get_fasta_header, get_gtf_header, fastagffcheck
-from alignment import automated_alignment
-from feature_counts import run_feature_counts
+from src.trimming import trim_and_fastqc
+from src.reference_genome import build_reference_genome, get_fasta_header, get_gtf_header, fastagffcheck
+from src.alignment import automated_alignment
+from src.feature_counts import run_feature_counts
 
 
 # Print the versions of each tool
