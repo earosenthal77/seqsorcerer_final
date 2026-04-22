@@ -5,13 +5,13 @@ import tqdm
 from importlib import reload 
 
 #import from files: 
-from src.check_tool import check_tool_version, define_tools
-from src.trimming import trim_and_fastqc
-from src.reference_genome import build_reference_genome, get_fasta_header, get_gtf_header, fastagffcheck
-from src.alignment import automated_alignment
-from src.feature_counts import run_feature_counts
+from rnaseq_pipeline.check_tool import check_tool_version, define_tools
+from rnaseq_pipeline.trimming import trim_and_fastqc
+from rnaseq_pipeline.reference_genome import build_reference_genome, get_fasta_header, get_gtf_header, fastagffcheck
+from rnaseq_pipeline.alignment import automated_alignment
+from rnaseq_pipeline.feature_counts import run_feature_counts
 
-def rna_seq_pipeline():
+def main():
 
     print("Hello, welcome to the SeqSorcerer! This is an automated RNA seq pipeline that will take your raw reads and output raw counts files.")
 
@@ -78,5 +78,3 @@ def rna_seq_pipeline():
     print("Pipeline is complete.")
 
     return
-
-rna_seq_pipeline()
