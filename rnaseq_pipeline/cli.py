@@ -46,8 +46,8 @@ def main():
     print("Reads are trimmed.")
 
     # Continue with the rest of your pipeline
-    gtf_location = input("Enter the file path to your .gtf or .gcf file: ").strip()
-    fasta_location = input("Enter the file path to your .fna file: ").strip()
+    # gtf_location = input("Enter the file path to your .gtf or .gcf file: ").strip()
+    # fasta_location = input("Enter the file path to your .fna file: ").strip()
     #gtf_location = "/Users/miseq/Desktop/24061Zebradata/GCF_003957565.2/genomic.gtf"
     #fasta_location = "/Users/miseq/Desktop/24061Zebradata/GCF_003957565.2/GCF_003957565.2_bTaeGut1.4.pri_genomic.fna"
 

@@ -4,8 +4,8 @@ import subprocess
 
 def trim_and_fastqc(folder_path, output_dir):
     # Find all R1 and R2 files in the folder
-    r1_files = glob.glob(os.path.join(folder_path, '*_R1_001.fastq.gz'))
-    r2_files = glob.glob(os.path.join(folder_path, '*_R2_001.fastq.gz'))
+    r1_files = glob.glob(os.path.join(folder_path, '*_R1_first100.fastq'))
+    r2_files = glob.glob(os.path.join(folder_path, '*_R2_first100.fastq'))
 
     # Sort the files to ensure they are in the same order for pairing
     r1_files.sort()

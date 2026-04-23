@@ -1,5 +1,5 @@
-data/
-test_data/
-ncbi_dataset/
-scripts/
-.git/
+**
+!env.yaml
+!rnaseq_pipeline/
+!pipeline.py
+!Dockerfile

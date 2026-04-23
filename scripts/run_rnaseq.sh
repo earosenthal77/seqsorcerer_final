@@ -1,12 +1,15 @@
 #!/bin/bash
 
 # --- USER CONFIGURATION ---
+# $(pwd) dynamically finds the path to your 'seqsorcerer_final' folder
+BASE_DIR=$(pwd)
+
 # Change these paths to point to your actual data on your computer
-READS_DIR="/data/testing"
-REF_DIR="/ncbi_dataset/ncbi_dataset/data/GCF_017654675.1"
-GENOME_FASTA="/ncbi_dataset/ncbi_dataset/data/GCF_017654675.1/GCF_017654675.1_Xenopus_laevis_v10.1_genomic.fna"
-ANNOTATION_GTF="/ncbi_dataset/ncbi_dataset/data/GCF_017654675.1/genomic.gtf"
-OUTPUT_DIR="/data/output"
+READS_DIR="$BASE_DIR/data/testing"
+REF_DIR="$BASE_DIR/ncbi_dataset/ncbi_dataset/data/GCF_017654675.1"
+GENOME_FASTA="$BASE_DIR/ncbi_dataset/ncbi_dataset/data/GCF_017654675.1/GCF_017654675.1_Xenopus_laevis_v10.1_genomic.fna"
+ANNOTATION_GTF="$BASE_DIR/ncbi_dataset/ncbi_dataset/data/GCF_017654675.1/genomic.gtf"
+OUTPUT_DIR="$BASE_DIR/data/output"
 
 # --- PIPELINE EXECUTION ---
 # This matches the "docker run pattern" from the handoff
