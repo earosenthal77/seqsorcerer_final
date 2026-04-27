@@ -25,8 +25,6 @@ def main():
             print(f"{tool_name}: {version_info}")                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
 
     # Prompt for user input
-    #folder_path = input("Enter the folder path containing your data: ").strip()
-    #output_dir = input("Enter the desired output directory: ").strip()
     #folder_path="/Volumes/CaChannel/240617ZebraFinchEmbryo/Lagging"
     folder_path = "./data/testing"
     #output_dir="/Volumes/CaChannel/240617ZebraFinchEmbryo/output_forFullAuto"
@@ -46,8 +44,6 @@ def main():
     print("Reads are trimmed.")
 
     # Continue with the rest of your pipeline
-    # gtf_location = input("Enter the file path to your .gtf or .gcf file: ").strip()
-    # fasta_location = input("Enter the file path to your .fna file: ").strip()
     #gtf_location = "/Users/miseq/Desktop/24061Zebradata/GCF_003957565.2/genomic.gtf"
     #fasta_location = "/Users/miseq/Desktop/24061Zebradata/GCF_003957565.2/GCF_003957565.2_bTaeGut1.4.pri_genomic.fna"
 
