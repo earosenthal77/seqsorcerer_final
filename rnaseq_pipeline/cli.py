@@ -1,4 +1,5 @@
 import os
+import argparse
 import subprocess
 import glob
 import tqdm
@@ -12,9 +13,29 @@ from rnaseq_pipeline.alignment import automated_alignment
 from rnaseq_pipeline.feature_counts import run_feature_counts
 
 def main():
+    # arg parsing: no longer asking for user input
 
-    print("Hello, welcome to the SeqSorcerer! This is an automated RNA seq pipeline that will take your raw reads and output raw counts files.")
+    parser = argparse.ArgumentParser(description="SeqSorcerer: Automated RNA-seq Pipeline")
+    
+    parser.add_argument('--fastq-dir', required=True, help='Internal container path to FASTQ files')
+    parser.add_argument('--reference', required=True, help='Internal container path to .fna file')
+    parser.add_argument('--gtf', required=True, help='Internal container path to .gtf file')
+    parser.add_argument('--outdir', required=True, help='Internal container path for output')
+    
+    args = parser.parse_args()
 
+    print("\n" + "="*60)
+    print("Hello! Welcome to the SeqSorcerer!")
+    print("Initializing automated RNA-seq pipeline...")
+    print("="*60 + "\n")
+
+    # assign paths from arguments. 
+    # these match what .sh script sends to docker
+    folder_path = args.fastq_dir
+    fasta_location = args.reference
+    gtf_location = args.gtf
+    output_dir = args.outdir
+    
     # Print the versions of each tool
     print("Checking tool versions:")
     for tool_name, command in define_tools().items():
@@ -22,59 +43,47 @@ def main():
         if "Error:" in version_info:
             print(f"{tool_name}: {version_info}")
         else:
-            print(f"{tool_name}: {version_info}")                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+            print(f"{tool_name}: {version_info}")
 
-    # Prompt for user input
-    #folder_path = input("Enter the folder path containing your data: ").strip()
-    #output_dir = input("Enter the desired output directory: ").strip()
-    #folder_path="/Volumes/CaChannel/240617ZebraFinchEmbryo/Lagging"
-    folder_path = "./data/testing"
-    #output_dir="/Volumes/CaChannel/240617ZebraFinchEmbryo/output_forFullAuto"
-    output_dir="./data/output"
-        
-    # Define trimmed folder path
+    # Data Organization                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
     trimmed_folder_path = os.path.join(output_dir, "trimmed_folder")
-    print(f"Trimmed folder path defined as: {trimmed_folder_path}")
-    # Create the trimmed folder if it doesn't exist
-    print(f"Creating trimmed folder at: {trimmed_folder_path}")
     os.makedirs(trimmed_folder_path, exist_ok=True)
-    print(f"Trimmed folder created or already exists at: {trimmed_folder_path}")
-
-    #trim the raw reads
-    print("Now trimming your raw reads.")
+    print(f"\n[INFO] Results will be stored in: {output_dir}")
+        
+    # Execute the Pipeline
+    # Step 1: Trimming
+    print("\n[STEP 1/4] Trimming raw reads...")
     fastqc_report_out_list = trim_and_fastqc(folder_path, trimmed_folder_path)
-    print("Reads are trimmed.")
+    print("Done.")
 
-    # Continue with the rest of your pipeline
-    # gtf_location = input("Enter the file path to your .gtf or .gcf file: ").strip()
-    # fasta_location = input("Enter the file path to your .fna file: ").strip()
-    #gtf_location = "/Users/miseq/Desktop/24061Zebradata/GCF_003957565.2/genomic.gtf"
-    #fasta_location = "/Users/miseq/Desktop/24061Zebradata/GCF_003957565.2/GCF_003957565.2_bTaeGut1.4.pri_genomic.fna"
-
-    print("Building your reference genome!")
+    # Step 2: Reference Genome Indexing
+    print("\n[STEP 2/4] Verifying reference genome index...")
     genome_location_path = os.path.join(output_dir, "aligned_genome")
-    if not os.path.exists(genome_location_path):
-        os.makedirs(genome_location_path, exist_ok=True)
-        build_reference_genome(fasta_location, genome_location_path)
-    print("Reference genome is built.")
+    os.makedirs(genome_location_path, exist_ok=True)
+    
+    # Passing fasta_location from argparse
+    build_reference_genome(fasta_location, genome_location_path)
+    print("Done.")
 
+    # Step 3: Alignment
+    print("\n[STEP 3/4] Aligning reads to reference...")
     alignment_folder_path = os.path.join(output_dir, "aligned_folder_bamfiles")
     os.makedirs(alignment_folder_path, exist_ok=True)
-    print(trimmed_folder_path)
-    print(fastqc_report_out_list)
-    print(alignment_folder_path)
-    print(genome_location_path)
+    
     automated_alignment(trimmed_folder_path, alignment_folder_path, genome_location_path)
-        
-    print("Reads are aligned.")
+    print("Done.")
 
+    # Step 4: Feature Counts
+    print("\n[STEP 4/4] Quantifying gene counts...")
     counts_folder_path = os.path.join(output_dir, "counts_folder")
     os.makedirs(counts_folder_path, exist_ok=True)
-    print(counts_folder_path)
-    print(gtf_location)
-    print(alignment_folder_path)
-    print(counts_folder_path)
+    
     run_feature_counts(gtf_location, alignment_folder_path, counts_folder_path)
-    print("Pipeline is complete.")
+    
+    print("\n" + "="*60)
+    print("SUCCESS: Pipeline complete.")
+    print(f"Output available in: {output_dir}")
+    print("="*60 + "\n")
 
-    return
+if __name__ == "__main__":
+    main()
