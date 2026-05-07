@@ -1,8 +1,11 @@
 import subprocess
+import os
 
 def build_reference_genome(fasta_location, genome_location):
+
+    index_base = os.path.join(genome_location, "genome_index")
     # Construct the command to build the reference genome
-    build_cmd = f"hisat2-build --large-index -p 16 {fasta_location} {genome_location}/genome_index"
+    build_cmd = f"hisat2-build --large-index -p 16 {fasta_location} {index_base}"
     subprocess.run(build_cmd, shell=True, check=True)
     return
 
