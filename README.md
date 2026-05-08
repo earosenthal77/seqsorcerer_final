@@ -35,14 +35,17 @@ Copy and paste this code into your terminal: ```./scripts/run_rnaseq.sh```
 ## Contents
 This section will provide a high level description of the contents of the repository. For more detailed information on the subfolders, please see the README files in the individual folders. 
 
-The ```.gitignore``` file tells github to disregard specific folders/files when uploading to the web. The ignored folders include: the data folder and ncbi_dataset folder which contain the raw reads and files downloaded from the nih. These files are extremely large and this data should be aquired by the user. 
+1. The ```.gitignore``` file tells github to disregard specific folders/files when uploading to the web. The ignored folders include: the data folder and ncbi_dataset folder which contain the raw reads and files downloaded from the nih. These files are extremely large and this data should be aquired by the user. 
 
-The ```.dockerignore``` tells docker which files it can to access to build the image and run the pipeline. With the current setup, docker only has access to ```env.yaml```, ```rnaseq_pipeline\```, and```Dockerfile```.
-1. ```Dockerfile```: You will see this file in your working directory after creating the Docker image. This downloads Micromamba, tells Micromamba which bioinformatics tools to download, and copies project files from your computer into the Docker container.
-2. ```env.yaml```: tells docker and micromamba which bioinformatics tools are required and the code dependencies.
-3. ```rnaseq_pipeline\``` is the folder containing the pipeline scripts. It contains individual scripts for each step in the pipeline as well as the ```cli.py``` file which runs each step in the correct order. Please see the individual README for more information.
+1. The ```.dockerignore``` tells docker which files it can to access to build the image and run the pipeline. With the current setup, docker only has access to ```env.yaml```, ```rnaseq_pipeline\```, and```Dockerfile```.
+      - ```Dockerfile```: You will see this file in your working directory after creating the Docker image. This downloads Micromamba, tells Micromamba which bioinformatics tools to download, and copies project files from your computer into the Docker container.
+      - ```env.yaml```: tells docker and micromamba which bioinformatics tools are required and the code dependencies.
+      - ```rnaseq_pipeline\``` is the folder containing the pipeline scripts. It contains individual scripts for each step in the pipeline as well as the ```cli.py``` file which runs each step in the correct order. Please see the individual README for more information.
 
-```docker-compose.yml```: This file is used to configure the entire pipeline to allow users to type one single command into the terminal as opposed to running many individual commands. This file is essential to the automation aspect of the pipeline. 
+2. ```docker-compose.yml```: This file is used to configure the entire pipeline to allow users to type one single command into the terminal as opposed to running many individual commands. This file is essential to the automation aspect of the pipeline. 
 
-```pyproject.toml```: This is the python configuration file. It allows our project to use python in combination with the python3.12 folder. 
+3. ```pyproject.toml```: This is the python configuration file. It allows our project to use python in combination with the python3.12 folder. 
+
+4. ```scripts```: This folder contains the ```run_rnaseq.sh``` file. 
+      - ```run_rnaseq.sh```: This is a shell script that contains a sequence of commands to run the pipeline. This file is also essential to the automation aspect of the pipeline. Additionally, this file allows users to define the working directories for the data inputs and pipeline outputs. 
 
