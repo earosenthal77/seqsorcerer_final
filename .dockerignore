@@ -1,5 +1,4 @@
 **
 !env.yaml
 !rnaseq_pipeline/
-!pipeline.py
 !Dockerfile
