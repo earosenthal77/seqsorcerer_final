@@ -4,6 +4,8 @@ Welcome to SeqSorcerer, an automated RNA-Sequencing pipeline!
 SeqSorcerer was developed as an automated RNA-Seq processing pipeline designed to reduce manual intervention while preserving the established analytical workflow used in the Saha lab at William & Mary. Rather than changing any preexisting RNA-Seq methods, SeqSorcerer encapsulates the same major processing steps within a structured and reproducible framework. The pipeline integrates quality trimming, reference genome preparation, sequence alignment, and gene quantification using commonly used RNA-Seq tools, including Trim Galore, HISAT2, Samtools, and featureCounts. Although originally designed for use in the Saha lab, SeqSorcerer can be easily adapted for alternate RNA-Seq projects.
 
 ## Quick-Start Guide
+### Prerequisites:
+Rna-Seq is a computational expensive pipeline, regardless of automation. The user needs 16GB+ RAM allocated to Docker to provide SeqSorcerer 
 ### 1. Clone the seqsorcerer_final Repository
 ### 2. Download raw read FASTQ files and reference genome files
 Have FASTQ files downloaded locally on your computer      
@@ -23,7 +25,7 @@ The five required paths are:
 ### 5. Download Docker Desktop and Create Account
 Download at this link: https://www.docker.com/products/docker-desktop/        
 Create a Docker account with a username and password.
-** Note: go into Docker settings, under Resources, and expand memory limit slider bar
+** To allot more RAM to Docker: go into Docker settings, under Resources, and expand memory limit and CPU slider bar
 ### 6. Build Docker Image
 Use terminal to set your working directory to the seqsorcerer_final repository      
 Build Docker image with this command: ```docker build -t rnaseq-pipeline:1.0 .```
@@ -51,6 +53,13 @@ This section will provide a high level description of the contents of the reposi
 
 ## Testing
 If you would like to test SeqSorcerer before running on full Fastq files, a ```fastq_trimmer.py``` file is available within the ```rnaseq_pipeline``` folder. This will trim any gzipped file of the format .fastq.gz to the first 100 reads. This provides a shortened fastq file allowing for a shortened run through of the pipeline. Note: you will have to edit .py files to accept .fq files and not .fq.gz.
+
+## Validation
+1. Verifiable Success: The pipeline completes a successful run when a ```.bam``` file is produced in the output folder and the ```featureCounts``` summary report shows a 'Successfully assigned' rate > 0%.
+2. Runtime Improvements:          
+         - Previously: ~30-45 minutes of active, hands-on time (check steps, typing commands,                 fixing errors) per file       
+         - SeqSorcerer: <2 mins of hands-on time (editing the .sh file) per batches of files
+3. Failure Handling: Before running, the pipeline checks all tools and their versions. Paired read files are checked to make sure both R1 and R2 files are provided. The system also checks for existing trimmed files or gene indices. If the pipeline is interrupted, it can resume rather than restart.
 
 ## In Progress Future Directions
 # Customizable Parameters:
