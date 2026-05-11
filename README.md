@@ -48,6 +48,7 @@ This section will provide a high level description of the contents of the reposi
 
 3. ```scripts```: This folder contains the ```run_rnaseq.sh``` file. 
       - ```run_rnaseq.sh```: This is a shell script that contains a sequence of commands to run the pipeline. This file is also essential to the automation aspect of the pipeline. Additionally, this file allows users to define the working directories for the data inputs and pipeline outputs.
+4. ```example_data```: This folder contains two paired example data files that are only 100 reads long. This allows for a quick evaluation of the pipeline without performing a full run.
 
 ## Testing
 If you would like to test SeqSorcerer before running on full FASTQ files, a ```fastq_trimmer.py``` file is available within the ```rnaseq_pipeline``` folder. This will trim any gzipped file of the format .fastq.gz to the first 100 reads. This provides a shortened fastq file allowing for a shortened run-through of the pipeline.           
