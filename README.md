@@ -50,8 +50,9 @@ This section will provide a high level description of the contents of the reposi
       - ```run_rnaseq.sh```: This is a shell script that contains a sequence of commands to run the pipeline. This file is also essential to the automation aspect of the pipeline. Additionally, this file allows users to define the working directories for the data inputs and pipeline outputs.
 
 ## Testing
-If you would like to test SeqSorcerer before running on full FASTQ files, a ```fastq_trimmer.py``` file is available within the ```rnaseq_pipeline``` folder. This will trim any gzipped file of the format .fastq.gz to the first 100 reads. This provides a shortened fastq file allowing for a shortened run-through of the pipeline.       
-Note: testing files must follow the same naming conventions expected by the pipeline.
+If you would like to test SeqSorcerer before running on full FASTQ files, a ```fastq_trimmer.py``` file is available within the ```rnaseq_pipeline``` folder. This will trim any gzipped file of the format .fastq.gz to the first 100 reads. This provides a shortened fastq file allowing for a shortened run-through of the pipeline.           
+Two paired, 100 read files are also available for testing.
+Note: testing files must follow the same naming conventions expected by the pipeline.        
 ## Validation
 1. Verifiable Success: The pipeline completes a successful run when a ```.bam``` file is produced in the output folder and the ```featureCounts``` summary report shows a 'Successfully assigned' rate > 0%.
 2. Runtime Improvements:          
