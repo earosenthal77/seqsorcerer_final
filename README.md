@@ -47,5 +47,12 @@ This section will provide a high level description of the contents of the reposi
 3. ```pyproject.toml```: This is the python configuration file. It allows our project to use python in combination with the python3.12 folder. 
 
 4. ```scripts```: This folder contains the ```run_rnaseq.sh``` file. 
-      - ```run_rnaseq.sh```: This is a shell script that contains a sequence of commands to run the pipeline. This file is also essential to the automation aspect of the pipeline. Additionally, this file allows users to define the working directories for the data inputs and pipeline outputs. 
+      - ```run_rnaseq.sh```: This is a shell script that contains a sequence of commands to run the pipeline. This file is also essential to the automation aspect of the pipeline. Additionally, this file allows users to define the working directories for the data inputs and pipeline outputs.
+
+## Testing
+If you would like to test SeqSorcerer before running on full Fastq files, a ```fastq_trimmer.py``` file is available within the ```rnaseq_pipeline``` folder. This will trim any gzipped file of the format .fastq.gz to the first 100 reads. This provides a shortened fastq file allowing for a shortened run through of the pipeline. Note: you will have to edit .py files to accept .fq files and not .fq.gz.
+
+## In Progress Future Directions
+# Customizable Parameters:
+Currently, the pipeline is optimized for _Xenopus laevis_ RNA-Sequencing reads from the Saha lab. Soon, a feature will be available allowing users to change the parameters of each tool (e.g. type of strandness).  
 
