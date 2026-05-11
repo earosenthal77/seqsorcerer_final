@@ -17,7 +17,7 @@ def automated_alignment(input_folder, output_folder, genome_location):
             print(f"Checking file: {filename}")
 
             #look for the R1 trimmed file: 
-            if '_R1' in filename and filename.endswith('_val_1.fq'):
+            if '_R1' in filename and filename.endswith('_val_1.fq.gz'):
                 print(f"MATCH FOUND: {filename} looks like a trimmed R1 file.")
 
                 #get the r1 path: 
@@ -27,7 +27,7 @@ def automated_alignment(input_folder, output_folder, genome_location):
                 r2_path = os.path.join(root, r2_filename)
 
                 # Extract sample name
-                sample_name = filename.split('_R1_first100_001_val_1.fq')[0]
+                sample_name = filename.split('_R1_001_val_1.fq.gz')[0]
 
                 if os.path.exists(r2_path):
 
@@ -43,21 +43,23 @@ def automated_alignment(input_folder, output_folder, genome_location):
                         f' samtools view -@ 24 -Shu - | samtools sort -@ 24 -o {bam_output}' 
                     )
                     print(f"RUNNING COMMAND: {command}")
+
                     # Execute command and display output
                     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                     for line in process.stdout:
                         print(line.decode().strip())
-                    else: 
-                        print(f"ERROR: Found R1 but R2 is missing at: {r2_path}")
-                else:
-                    pass
+                    process.wait()
 
-                if not found_any_file:
-                    print("ERROR: os.walk found ZERO files in the input folder. Check your mount paths!")
-
-                    #make sure alignment finishes before starting feature counts
-                    process.wait() 
                     if process.returncode != 0:
                         print(f"Alignment failed for {sample_name} with exit code {process.returncode}")
                     else:
                         print(f"Alignment finished for {sample_name}")
+
+                else: 
+                    print(f"ERROR: Found R1 but R2 is missing at: {r2_path}")
+
+    if not found_any_file:
+        print("ERROR: os.walk found zero files in the input folder. Check your mount paths!")
+                    
+                    
+    

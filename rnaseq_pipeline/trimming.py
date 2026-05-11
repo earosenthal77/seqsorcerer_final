@@ -24,9 +24,17 @@ def trim_and_fastqc(folder_path, output_dir):
         # Define output file names for trim_galore
             # Define output file names for trim_galore
         base_name = os.path.basename(r1).replace('_R1_001.fastq.gz', '')
-        trimmed_r1_out = os.path.join(output_dir, f"{base_name}_R1_trimmed.fastq.gz")
-        trimmed_r2_out = os.path.join(output_dir, f"{base_name}_R2_trimmed.fastq.gz")
         fastqc_report_out = os.path.join(output_dir, f"{base_name}_Fastqc_Report")
+
+        # Check if trimmed files already exist
+        check_file = os.path.join(fastqc_report_out, f"{base_name}_R1_001_val_1.fq.gz")
+
+        if os.path.exists(check_file):
+            print(f"SKIP: Trimmed files for {base_name} already exists.")
+            fastqc_report_out_list.append(fastqc_report_out)
+            continue # move on to next pair of files
+
+        print(f"Trimming sample {base_name}...")
         fastqc_report_out_list.append(fastqc_report_out)
 
         # Run trim_galore
