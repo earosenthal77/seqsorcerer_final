@@ -5,12 +5,12 @@ SeqSorcerer was developed as an automated RNA-Seq processing pipeline designed t
 
 ## Quick-Start Guide
 ### Prerequisites:
-Rna-Seq is a computational expensive pipeline, regardless of automation. The user needs 16GB+ RAM allocated to Docker to provide SeqSorcerer 
+RNA-Seq is a computationally expensive pipeline, regardless of automation. The user needs 16GB+ RAM allocated to Docker to run SeqSorcerer.
 ### 1. Clone the seqsorcerer_final Repository
 ### 2. Download raw read FASTQ files and reference genome files
 Have FASTQ files downloaded locally on your computer      
 Download the reference genome for your species of choice            
-For example, this project uses X. laevis reference genome V10.1 from the National Institute of Health (NIH) website          
+For example, this project uses X. laevis reference genome V10.1 from the National Institutes of Health (NIH) website          
 https://www.ncbi.nlm.nih.gov/assembly/9809711
 ### 3. Create data folder with Raw Reads and Reference Genome
 Create the data folder within the downloaded repository.
@@ -37,23 +37,21 @@ Copy and paste this code into your terminal: ```./scripts/run_rnaseq.sh```
 ## Contents
 This section will provide a high level description of the contents of the repository. For more detailed information on the subfolders, please see the README files in the individual folders. 
 
-1. The ```.gitignore``` file tells github to disregard specific folders/files when uploading to the web. The ignored folders include: the data folder and ncbi_dataset folder which contain the raw reads and files downloaded from the nih. These files are extremely large and this data should be aquired by the user. 
+1. The ```.gitignore``` file tells github to disregard specific folders/files when uploading to the web. The ignored folders include: the data folder and ncbi_dataset folder which contain the raw reads and files downloaded from the nih. These files are extremely large and this data should be acquired by the user. 
 
-1. The ```.dockerignore``` tells docker which files it can to access to build the image and run the pipeline. With the current setup, docker only has access to ```env.yaml```, ```rnaseq_pipeline\```, and```Dockerfile```.
-      - ```Dockerfile```: You will see this file in your working directory after creating the Docker image. This downloads Micromamba, tells Micromamba which bioinformatics tools to download, and copies project files from your computer into the Docker container.
+1. The ```.dockerignore``` tells docker which files ito exclude when building the image. With the current setup, docker only has access to ```env.yaml```, ```rnaseq_pipeline\```, and```Dockerfile```.
+      - ```Dockerfile```: You will see this file in your working directory after creating the Docker image. This downloads Micromamba, tells Micromamba which bioinformatics tools to download, and copies project files from your er into the Docker container.
       - ```env.yaml```: tells docker and micromamba which bioinformatics tools are required and the code dependencies.
       - ```rnaseq_pipeline\``` is the folder containing the pipeline scripts. It contains individual scripts for each step in the pipeline as well as the ```cli.py``` file which runs each step in the correct order. Please see the individual README for more information.
 
-2. ```docker-compose.yml```: This file is used to configure the entire pipeline to allow users to type one single command into the terminal as opposed to running many individual commands. This file is essential to the automation aspect of the pipeline. 
+2. ```pyproject.toml```: This is the python configuration file. It defines project metadata and package settings used by the Python environment.
 
-3. ```pyproject.toml```: This is the python configuration file. It allows our project to use python in combination with the python3.12 folder. 
-
-4. ```scripts```: This folder contains the ```run_rnaseq.sh``` file. 
+3. ```scripts```: This folder contains the ```run_rnaseq.sh``` file. 
       - ```run_rnaseq.sh```: This is a shell script that contains a sequence of commands to run the pipeline. This file is also essential to the automation aspect of the pipeline. Additionally, this file allows users to define the working directories for the data inputs and pipeline outputs.
 
 ## Testing
-If you would like to test SeqSorcerer before running on full Fastq files, a ```fastq_trimmer.py``` file is available within the ```rnaseq_pipeline``` folder. This will trim any gzipped file of the format .fastq.gz to the first 100 reads. This provides a shortened fastq file allowing for a shortened run through of the pipeline. Note: you will have to edit .py files to accept .fq files and not .fq.gz.
-
+If you would like to test SeqSorcerer before running on full FASTQ files, a ```fastq_trimmer.py``` file is available within the ```rnaseq_pipeline``` folder. This will trim any gzipped file of the format .fastq.gz to the first 100 reads. This provides a shortened fastq file allowing for a shortened run-through of the pipeline.       
+Note: testing files must follow the same naming conventions expected by the pipeline.
 ## Validation
 1. Verifiable Success: The pipeline completes a successful run when a ```.bam``` file is produced in the output folder and the ```featureCounts``` summary report shows a 'Successfully assigned' rate > 0%.
 2. Runtime Improvements:          
