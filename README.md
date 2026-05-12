@@ -62,6 +62,6 @@ Note: testing files must follow the same naming conventions expected by the pipe
 3. Failure Handling: Before running, the pipeline checks all tools and their versions. Paired read files are checked to make sure both R1 and R2 files are provided. The system also checks for existing trimmed files or gene indices. If the pipeline is interrupted, it can resume rather than restart.
 
 ## In Progress Future Directions
-# Customizable Parameters:
+### Customizable Parameters:
 Currently, the pipeline is optimized for _Xenopus laevis_ RNA-Sequencing reads from the Saha lab. Soon, a feature will be available allowing users to change the parameters of each tool (e.g. type of strandness).  
 
